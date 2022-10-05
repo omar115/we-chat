@@ -27,11 +27,21 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type WebSocketConnection struct {
+	*websocket.Conn
+}
+
 // WSJsonResponse defines the response sent back from websocket
 type WSJsonResponse struct {
 	Action      string `json: "action"`
 	Message     string `json: "message"`
 	MessageType string `json: "message_type"`
+}
+
+type WsPayload struct {
+	Action  string              `json: "action"`
+	Message string              `json: "message"`
+	Conn    WebSocketConnection `json:"-" `
 }
 
 // WSEndPoint upgrades connection to websocket
